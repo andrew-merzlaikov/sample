@@ -1,4 +1,4 @@
-# Some smaple in python
+# Some sample in python
 
 
 Dirictory PIL has sample used PIL library, Sorl-thumbnails and Django
