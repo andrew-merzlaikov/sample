@@ -1,6 +1,6 @@
-# Some sample in python
+# Some samples in python
 
 
-Dirictory PIL has sample used PIL library, Sorl-thumbnails and Django
+Directory PIL has sample used PIL library, Sorl-thumbnails and Django
 
-Dirictory mezzanine has sample used Django-Photologue, BeautifulSoup, Mezzanine, TinyMCE, and Django
+Directory mezzanine has sample used Django-Photologue, BeautifulSoup, Mezzanine, TinyMCE, and Django
