@@ -1,0 +1,74 @@
+{% load thumbnail image_circle_tag %}
+
+{% if type == 'small' %}
+    {% if is_one_photo %}
+        {% for photo in gallery.public.all %}
+            {% if forloop.first %}
+                {% thumbnail photo.image "750" format="PNG" crop="center" quality="100" colorspace="RGB" as im %}
+                    <a href="{{ im.url }}" title="{{ gallery.title }}" class="fancy info_green">{{ text }}</a>
+                {% endthumbnail %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <a href="#" data-url-gallery="{% url 'ajax_get_gallery' gallery_id=gallery.id %}" title="{{ gallery.title }}" class="gallery-show info_green">{{ text }}</a>
+    {% endif %}
+{% elif type == 'circle' %}
+    {% if is_one_photo %}
+        {% for photo in gallery.public.all %}
+            {% if forloop.first %}
+                {% thumbnail photo.image "759" format="PNG" crop="center" quality="100" colorspace="RGB" as im %}
+                {% thumbnail photo.image "210x210" format="PNG" crop="center" quality="100" colorspace="RGB" as im_small %}
+                    <a href="{{ im.url }}" title="{{ gallery.title }}" class="fancy info_circle">
+                        <img src="{{ im_small.url|image_to_circle }}" alt="{{ gallery.title }}" title="{{ gallery.title }}">
+                    </a>
+                {% endthumbnail %}
+                {% endthumbnail %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <a href="#" data-url-gallery="{% url 'ajax_get_gallery' gallery_id=gallery.id %}" title="{{ gallery.title }}" class="gallery-show info_circle">
+            {% for photo in gallery.public.all %}
+                {% if forloop.first %}
+                    {% thumbnail photo.image "210x210" format="PNG" crop="center" quality="100" colorspace="RGB" as im %}
+                        <img src="{{ im.url|image_to_circle }}" alt="{{ text }}">
+                    {% endthumbnail %}
+                {% endif %}
+            {% endfor %}
+        </a>
+    {% endif %}
+{% else %}
+    {% if is_one_photo %}
+        {% for photo in gallery.public.all %}
+            {% if forloop.first %}
+                {% thumbnail photo.image "750" format="PNG" crop="center" quality="100" colorspace="RGB" as im %}
+                    <img width="750" src="{{ im.url }}" alt="{{ photo.caption }}">
+                {% endthumbnail %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    $(".open-gallery{{ gallery.id }}").PikaChoose({
+                        'carousel':true,
+                        'hoverPause':true,
+                        'autoPlay':false
+                    });
+                });
+            })(jQuery);
+        </script>
+
+        <div class="custom-contact-gallery">
+            <ul class="open-gallery{{ gallery.id }}">
+                {% for photo in gallery.public.all %}
+                    {% thumbnail photo.image "900" as im %}
+                    {% thumbnail photo.image "135" format="PNG" crop="center" quality="100" colorspace="RGB" as im_small %}
+                        <li class="gallery_images"><img src="{{ im_small.url }}" ref="{{ im.url }}" alt="{{ photo.caption }}"><span>{{ photo.caption }}</span></li>
+                    {% endthumbnail %}
+                    {% endthumbnail %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endif %}
+

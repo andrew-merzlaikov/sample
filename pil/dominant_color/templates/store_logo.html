@@ -1,0 +1,8 @@
+{% load common_tag thumbnail %}
+{% spaceless %}
+    {% thumbnail store.logo "150x150" format="PNG" quality="100" colorspace="RGB" as im %}
+        <img width="150" src="{{ im.url|logo_to_dominant_color }}"
+             alt="{{ store.title }}" title="{{ store.title }}"
+             style="border-radius: 100px;">
+    {% endthumbnail %}
+{% endspaceless %}

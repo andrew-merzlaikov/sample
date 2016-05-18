@@ -1,0 +1,11 @@
+{% load staticfiles %}
+{% if type == 'small' or type == 'circle' %}
+    <script type="text/javascript" src="{% static "js/gallery/short_gallery.js" %}"></script>
+
+    <div class="gallery-show-block" style="display: none">
+        <div class="gallery-title"></div>
+        <div class="b-close">Закрыть</div>
+        <div id="f-gallery" ></div>
+    </div>
+{% endif %}
+
